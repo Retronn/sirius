@@ -42,6 +42,29 @@ class DroneShowSettings(bpy.types.PropertyGroup):
         description = "Spacing between the rows in meters"
     )     
 
+    drone_color: bpy.props.FloatVectorProperty(
+        name="Color",
+        description="LED color to apply on selected drones",
+        subtype='COLOR',
+        default=(1,1,1),
+        min=0.0,
+        max=1.0,
+    )
+
+    apply_to_all_drones: bpy.props.BoolProperty(
+        name = "Apply to All Drones",
+        description="Selected configurations will be applied to all existing drones",
+        default=False
+
+    )
+
+    glow_strength: bpy.props.FloatProperty(
+        name = "Glow Strength",
+        description="Defines how strong are LEDs of selected drones",
+        default=5.0,
+        min=0.0,
+        max = 100.0
+    )
 
 
 def register():

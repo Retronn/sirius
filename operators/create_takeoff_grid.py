@@ -1,5 +1,5 @@
 import bpy
-from ..materials import create_drone_emission_material
+from ..materials import create_drone_emission_material, configure_lighting_copositing
 
 class CreateTakeoffGrid(bpy.types.Operator):
     bl_idname = "object.create_takeoff_grid"
@@ -27,7 +27,8 @@ class CreateTakeoffGrid(bpy.types.Operator):
             
             drones_collection = bpy.data.collections.new("Drones")
             bpy.context.scene.collection.children.link(drones_collection)
-            
+            configure_lighting_copositing()
+
             drone_cnt = 0
             for i in range(cols):
                 for j in range(rows):
@@ -37,9 +38,9 @@ class CreateTakeoffGrid(bpy.types.Operator):
                         location = (start_pos_x - hor_spc*j, start_pos_y - vert_spc*i, 0)
                     )
                     drone = bpy.context.active_object
-                    drone.name ="Drone_"+str(drone_cnt)
-                    create_drone_emission_material()
-                    emission_mat = bpy.data.materials.get("DroneEmissionMaterial")
+                    drone.name ="Drone "+str(drone_cnt)
+                    create_drone_emission_material(drone.name)
+                    emission_mat = bpy.data.materials.get(f'LED color of {drone.name}')
                     if drone.data.materials:
                         drone.data.materials[0] = emission_mat
                     else:

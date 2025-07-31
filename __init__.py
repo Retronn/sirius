@@ -21,7 +21,6 @@ def register():
 
 def unregister():
     props.unregister()
-    materials.unregister()
     operators.unregister()
     panels.unregister()
     
